@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
+import { Outlet } from 'react-router-dom';
 
 const UserLayout = () => {
     return (
@@ -8,7 +9,9 @@ const UserLayout = () => {
             {/* Header */}
             <Header />
             {/* Main content */}
-            <main>Lorem1000</main>
+            <main>
+                <Outlet/>
+            </main>
             {/* footer */}
             <Footer/>
 
