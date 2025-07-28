@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import imggg from "../assets/assets/login.webp";
 
-const Register = () => {
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -24,6 +24,9 @@ const Register = () => {
         try {
             setLoading(true);
             setError("");
+
+            e.preventDefault();
+            console.log("User Registered:", { email, password });
 
             // MOCKED REGISTER: Simulate API call
             await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate delay
@@ -116,4 +119,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Login;
