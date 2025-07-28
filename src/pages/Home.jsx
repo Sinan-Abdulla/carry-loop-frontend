@@ -7,6 +7,7 @@ import { Toaster } from 'sonner'
 import ProductGrid from '../components/Products/ProductGrid'
 import FeaturedCollection from '../components/Products/FeaturedCollection'
 import Features from '../components/Products/Features'
+import Login from './Login'
 
 const placeholderProducts = [
   {
