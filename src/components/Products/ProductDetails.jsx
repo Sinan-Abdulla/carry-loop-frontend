@@ -10,7 +10,7 @@ const ProductDetails = () => {
         originalPrice: 150,
         brand: "FashionBrand",
         material: "Leather",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: ["S", "M", "L", "XL"], 
         colors: ["#7b1818", "#000000"],
         images: [
             {
