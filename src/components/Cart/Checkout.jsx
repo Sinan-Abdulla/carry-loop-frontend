@@ -158,14 +158,16 @@ const Checkout = () => {
                             <div>
                                 <h3 className="text-lg mb-4">Pay with PayPal</h3>
                                 <PaypalButton
-                                    amount="100"
-                                    currency="USD"
-                                    onSuccess={handlePaymentSuccess}
-                                    onError={(err) => {
-                                        console.error("PayPal Error:", err);
-                                        alert("Payment failed. Check console for details.");
-                                    }}
-                                />
+  amount="2.35"
+  currency="USD"
+  onSuccess={handlePaymentSuccess}
+  onError={(err) => {
+    console.error("PayPal Error:", err);
+    alert("Payment failed. Check console for details.");
+  }}
+/>
+
+
 
                             </div>
                         )}
