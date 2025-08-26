@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import imggg from "../assets/assets/login.webp";
 
+import { loginUser } from "../redux/authSlice"
+import { useDispatch } from "react-redux";
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -11,10 +14,14 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
+    const dispatch = useDispatch();
+
+
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        dispatch(loginUser({ email, password }));
 
         if (!email || !password) {
             setError("Please fill in all fields.");

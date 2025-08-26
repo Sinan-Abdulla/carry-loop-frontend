@@ -4,19 +4,24 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import imggg from "../assets/assets/login.webp";
 
+import { registerUser } from "../redux/authSlice";
+import { useDispatch } from "react-redux";
+
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        if (!name || !email || !password) {
+        if (!firstName || !lastName || !email || !password) {
             setError("Please fill in all fields.");
             return;
         }
@@ -25,17 +30,20 @@ const Register = () => {
             setLoading(true);
             setError("");
 
-            e.preventDefault();
-            console.log("User Registered:", { name, email, password });
-
-            // MOCKED REGISTER: Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate delay
+            // Simulate API delay
+            await new Promise((resolve) => setTimeout(resolve, 1000));
 
             if (email === "test@example.com") {
                 setError("Email already exists.");
             } else {
+                // Dispatch to Redux store
+                dispatch(registerUser({ firstName, lastName, email, password }));
+
+                // Simulate token storage
                 localStorage.setItem("token", "mocked_token_123");
-                navigate("/"); // redirect to homepage
+
+                // Redirect to homepage
+                navigate("/");
             }
         } catch (err) {
             setError("Something went wrong. Try again later.");
@@ -61,16 +69,28 @@ const Register = () => {
 
                     {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
 
-                    <label htmlFor="name" className="text-sm font-medium block mb-1">
-                        Full Name
+                    <label htmlFor="firstName" className="text-sm font-medium block mb-1">
+                        First Name
                     </label>
                     <input
-                        id="name"
+                        id="firstName"
                         type="text"
-                        placeholder="Your Name"
+                        placeholder="First Name"
                         className="w-full px-4 py-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-black"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                    />
+
+                    <label htmlFor="lastName" className="text-sm font-medium block mb-1">
+                        Last Name
+                    </label>
+                    <input
+                        id="lastName"
+                        type="text"
+                        placeholder="Last Name"
+                        className="w-full px-4 py-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-black"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
                     />
 
                     <label htmlFor="email" className="text-sm font-medium block mb-1">
@@ -100,8 +120,11 @@ const Register = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full py-2 rounded text-white font-medium ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-black hover:bg-gray-900"
-                            }`}
+                        className={`w-full py-2 rounded text-white font-medium ${
+                            loading
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "bg-black hover:bg-gray-900"
+                        }`}
                     >
                         {loading ? "Creating..." : "Create Account"}
                     </button>

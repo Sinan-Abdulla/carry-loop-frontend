@@ -10,24 +10,29 @@ import ProductDetails from './components/Products/ProductDetails'
 import Checkout from './components/Cart/Checkout'
 import OrderConfirmation from './components/Cart/OrderConfirmation'
 
+import { Provider } from 'react-redux'
+import store from "./redux/store"
+
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<UserLayout />}>
-          <Route index element={<Home />} />
-          <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='collections/:collection' element={<CollectionPage />} />
-          <Route path='product/:id' element={<ProductDetails />} />
-          <Route path='checkout' element={<Checkout />} />
-          <Route path="/order-confirmation" element={<OrderConfirmation />} />
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<UserLayout />}>
+            <Route index element={<Home />} />
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Register />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='collections/:collection' element={<CollectionPage />} />
+            <Route path='product/:id' element={<ProductDetails />} />
+            <Route path='checkout' element={<Checkout />} />
+            <Route path="/order-confirmation" element={<OrderConfirmation />} />
 
-        </Route>
-        <Route>{/* Admin Layout */}</Route>
-      </Routes>
-    </BrowserRouter>
+          </Route>
+          <Route>{/* Admin Layout */}</Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   )
 }
 
