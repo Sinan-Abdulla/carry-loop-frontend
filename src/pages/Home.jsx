@@ -74,6 +74,7 @@ const Home = () => {
       <div className="container mx-auto px-4 my-20">
         <h2 className="text-3xl text-center font-bold mb-8">
           Top Wears for Women
+          
         </h2>
 
         <ProductGrid product={placeholderProducts} />

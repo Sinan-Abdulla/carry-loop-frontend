@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import imggg from "../assets/assets/login.webp";
 
-import { loginUser } from "../redux/authSlice"
+import { loginUser } from "../redux//slices/authSlice"
 import { useDispatch } from "react-redux";
 
 const Login = () => {

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { toast } from 'sonner';
 import ProductDrid from './ProductGrid';
 
+
+
+
 const ProductDetails = () => {
     const selectedProduct = {
         name: "Stylish Jacket",
@@ -10,7 +13,7 @@ const ProductDetails = () => {
         originalPrice: 150,
         brand: "FashionBrand",
         material: "Leather",
-        sizes: ["S", "M", "L", "XL"], 
+        sizes: ["S", "M", "L", "XL"],
         colors: ["#7b1818", "#000000"],
         images: [
             {
@@ -77,7 +80,10 @@ const ProductDetails = () => {
     };
 
     return (
+
+
         <div className="p-6">
+
             <div className="max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-md">
                 <div className="flex flex-col md:flex-row gap-6">
 
@@ -194,6 +200,10 @@ const ProductDetails = () => {
                 </div>
             </div>
             <div className="mt-20">
+
+                <h2 className="text-2xl font-semibold text-center mb-12">
+                    You May Also Like
+                </h2>
 
                 {/* Assuming ProductGrid is a custom component */}
                 <ProductDrid product={similarProducts} />
