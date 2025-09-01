@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { IoMdClose } from 'react-icons/io';
-import CartContenets from '../Cart/CartContenets';
+import CartContents from '../Cart/CartContents';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -27,7 +27,7 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
             {/* cart component with scrolable area */}
             <div className='flex-grow p-4'>
                 <h2 className='text-xl font-semibold mb-4'>Your Cart</h2>
-                <CartContenets />
+                <CartContents />
 
             </div>
             {/*Checkout button fixed at the bottom */}
