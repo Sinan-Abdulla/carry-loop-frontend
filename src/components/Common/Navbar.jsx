@@ -30,16 +30,16 @@ const Navbar = () => {
 
                 {/* center navigation link */}
                 <div className="hidden md:flex space-x-6">
-                    <Link to="/collections/all" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
+                    <Link to="/collections/all?gender=Men" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
                         men
                     </Link>
-                    <Link to="#" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
+                    <Link to="/collections/all?gender=Women" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
                         women
                     </Link>
-                    <Link to="#" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
+                    <Link to="/collections/all?category=Top Wear" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
                         topwear
                     </Link>
-                    <Link to="#" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
+                    <Link to="/collections/all?category=Bottom Wear" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
                         bottomwear
                     </Link>
                 </div>
@@ -81,28 +81,28 @@ const Navbar = () => {
                     <h2 className="text-xl font-semibold mb-4">Menu</h2>
                     <nav>
                         <Link
-                            to="#"
+                            to="/collections/all?gender=Men"
                             onClick={toggleNavDrawer}
                             className="block text-gray-700 hover:text-black mb-2 "
                         >
                             MEN
                         </Link>
                         <Link
-                            to="#"
+                            to="/collections/all?gender=Women"
                             onClick={toggleNavDrawer}
                             className="block text-gray-700 hover:text-black mb-2"
                         >
                             WOMEN
                         </Link>
                         <Link
-                            to="#"
+                            to="/collections/all?category=Top Wear"
                             onClick={toggleNavDrawer}
                             className="block text-gray-700 hover:text-black mb-2"
                         >
                             TOPWEAR
                         </Link>
                         <Link
-                            to="#"
+                            to="/collections/all?category=Bottom Wear"
                             onClick={toggleNavDrawer}
                             className="block text-gray-700 hover:text-black mb-2"
                         >
