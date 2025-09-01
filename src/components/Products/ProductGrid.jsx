@@ -1,11 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ProductGrid = ({ product }) => {
+const ProductGrid = ({ product, loading, error }) => {
+  if (loading) {
+    return <p>loading ...</p>;
+  }
+
+  if (error) {
+    return <P>Error:{error}</P>;
+  }
   return (
     <div className="my-20 px-4">
       {/* Section Heading */}
-     
+
 
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">

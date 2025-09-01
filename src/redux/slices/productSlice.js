@@ -96,12 +96,31 @@ export const fetchSimilarProducts = createAsyncThunk(
     }
 );
 
+// 🔹 Fetch best-seller products
+export const fetchBestSellers = createAsyncThunk(
+    "products/fetchBestSellers",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(
+                `${import.meta.env.VITE_BACKEND_URL}/api/products/best-seller`
+            );
+            return response.data;
+        } catch (error) {
+            console.error("❌ Error fetching best sellers:", error);
+            return rejectWithValue(
+                error.response?.data?.message || "Failed to fetch best sellers"
+            );
+        }
+    }
+);
+
 const productsSlice = createSlice({
     name: "products",
     initialState: {
         products: [],
         selectedProduct: null,
         similarProducts: [],
+        bestSellers: [],
         loading: false,
         error: null,
         filters: {
@@ -207,6 +226,21 @@ const productsSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload || action.error.message;
             })
+
+            // 🔹 Handle fetching best sellers
+            .addCase(fetchBestSellers.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchBestSellers.fulfilled, (state, action) => {
+                state.loading = false;
+                state.bestSellers = Array.isArray(action.payload) ? action.payload : [];
+            })
+            .addCase(fetchBestSellers.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload || action.error.message;
+            })
+
     },
 });
 
