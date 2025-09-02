@@ -10,11 +10,15 @@ const Profile = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+
+
     useEffect(() => {
         if (!user) {
             navigate("/login");
         }
     }, [user, navigate]);
+
+
 
     const handleLogout = () => {
         dispatch(logout());

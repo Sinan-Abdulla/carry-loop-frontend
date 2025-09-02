@@ -69,20 +69,22 @@ export const registerUser = createAsyncThunk(
         userData
       );
 
-      const user = response.data.data; // because backend sends data: savedUser
-      const token = response.data.token; // token exists but was not in JSON before
+      const user = response.data.user; // backend sends { data: savedUser }
+      const token = response.data.token; // backend sends token
 
       if (user && token) {
+        // ✅ Save in localStorage
         localStorage.setItem("userInfo", JSON.stringify(user));
         localStorage.setItem("userToken", token);
       }
 
-      return user;
+      return { user, token }; // ✅ return both
     } catch (error) {
       return rejectWithValue(error.response?.data || { message: error.message });
     }
   }
 );
+
 
 
 // 🔹 Slice
@@ -124,7 +126,7 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

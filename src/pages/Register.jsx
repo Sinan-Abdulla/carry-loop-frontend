@@ -1,11 +1,11 @@
 // src/pages/Register.jsx
 
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import imggg from "../assets/assets/login.webp";
 
 import { registerUser } from "../redux/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -15,42 +15,63 @@ const Register = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const { user, guestId } = useSelector((state) => state.auth);
+    const { cart } = useSelector((state) => state.cart);
+
+    // Extract redirect param
+    const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+    const isCheckoutRedirect = redirect.includes("checkout");
+
+    // ✅ Effect: Only run when user changes
+    useEffect(() => {
+        if (user) {
+            if (cart?.products?.length > 0 && guestId) {
+                dispatch(mergeCart({ guestId, user })).then(() => {
+                    navigate(isCheckoutRedirect ? "/checkout" : "/");
+                });
+            } else {
+                navigate(isCheckoutRedirect ? "/checkout" : "/");
+            }
+        }
+    }, [user, guestId, cart, isCheckoutRedirect, navigate, dispatch]);
+
+
 
     const handleRegister = async (e) => {
         e.preventDefault();
-
+      
         if (!firstName || !lastName || !email || !password) {
-            setError("Please fill in all fields.");
-            return;
+          setError("Please fill in all fields.");
+          return;
         }
-
+      
         try {
-            setLoading(true);
-            setError("");
-
-            // Simulate API delay
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            if (email === "test@example.com") {
-                setError("Email already exists.");
-            } else {
-                // Dispatch to Redux store
-                dispatch(registerUser({ firstName, lastName, email, password }));
-
-                // Simulate token storage
-                localStorage.setItem("token", "mocked_token_123");
-
-                // Redirect to homepage
-                navigate("/");
-            }
+          setLoading(true);
+          setError("");
+      
+          // Dispatch register thunk and wait for response
+          const result = await dispatch(
+            registerUser({ firstName, lastName, email, password })
+          ).unwrap();
+      
+          // Save user and token properly
+          localStorage.setItem("userInfo", JSON.stringify(result.user));
+          localStorage.setItem("userToken", result.token);
+      
+          // Redirect to profile page
+          navigate("/");
         } catch (err) {
-            setError("Something went wrong. Try again later.");
+          setError(err.message || "Something went wrong. Try again later.");
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
+      
 
     return (
         <div className="flex min-h-screen">
@@ -120,18 +141,17 @@ const Register = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full py-2 rounded text-white font-medium ${
-                            loading
+                        className={`w-full py-2 rounded text-white font-medium ${loading
                                 ? "bg-gray-400 cursor-not-allowed"
                                 : "bg-black hover:bg-gray-900"
-                        }`}
+                            }`}
                     >
                         {loading ? "Creating..." : "Create Account"}
                     </button>
 
                     <p className="text-sm text-center mt-4 text-gray-600">
                         Already have an account?{" "}
-                        <Link to="/login" className="text-blue-600 hover:underline">
+                        <Link to={`/login?redirect=${encodeURIComponent(redirect)}`} className="text-blue-600 hover:underline">
                             Login
                         </Link>
                     </p>
