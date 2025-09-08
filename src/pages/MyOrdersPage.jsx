@@ -25,10 +25,10 @@ const orders = [
 
 const OrdersList = () => {
     return (
-        <div className="w-full px-3">
+        <div className="w-full px-3 mb-10 mt-10 ">
             <h2 className="text-xl font-bold mb-6 text-gray-800 text-center">My Orders</h2>
 
-            <div className="space-y-6">
+            <div className="space-y-6 ">
                 {orders.map((order) => (
                     <div
                         key={order.id}

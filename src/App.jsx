@@ -8,7 +8,10 @@ import Profile from './pages/Profile'
 import CollectionPage from './pages/CollectionPage'
 import ProductDetails from './components/Products/ProductDetails'
 import Checkout from './components/Cart/Checkout'
-import OrderConfirmation from './components/Cart/OrderConfirmation'
+
+import OrderConfirmation from '../src/orderConfirmation/orderConfirmation'
+import OrdersList from '../src/pages/MyOrdersPage'
+import OrderDetailPage from '../src/pages/orderDetailPage'
 
 import { Provider } from 'react-redux'
 import store from "./redux/store"
@@ -26,7 +29,9 @@ const App = () => {
             <Route path='collections/:collection' element={<CollectionPage />} />
             <Route path='product/:id' element={<ProductDetails />} />
             <Route path='checkout' element={<Checkout />} />
-            <Route path="/order-confirmation" element={<OrderConfirmation />} />
+            <Route path="/order-Confirmation" element={<OrderConfirmation />} />
+            <Route path="/myorders" element={<OrdersList />} />
+            <Route path="/orderDetails" element={<OrderDetailPage/>} />
 
           </Route>
           <Route>{/* Admin Layout */}</Route>
